@@ -6,6 +6,9 @@
   "license": "MOZILLA PUBLIC LICENSE, VERSION 2.0",
   "node": ">=16",
   "main": "dist/index.js",
+  "bin": {
+    "createAngularStaticHashes": "dist/index.js"
+  },
   "scripts": {
     "build": "shx rm -rf ./dist && shx mkdir ./dist && tsc",
     "scripts:lint": "eslint ./src --ext .js,.ts",
