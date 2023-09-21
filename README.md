@@ -1,4 +1,4 @@
-# Create a list of static assets and their hashes
+# Angular and create a list of static assets with their hashes
 
 The package looks for static assets, creates a list of them with their hashes, and saves it as a JSON file. This is useful when you want to change the same static asset without changing the name and ensure that the browser will always fetch the latest version.
 
