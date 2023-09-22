@@ -5,6 +5,7 @@
   "version": "0.0.6",
   "license": "MOZILLA PUBLIC LICENSE, VERSION 2.0",
   "node": ">=16",
+  "type": "module",
   "main": "dist/index.js",
   "bin": {
     "createAngularStaticHashes": "dist/index.js"
