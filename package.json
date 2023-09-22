@@ -8,7 +8,7 @@
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "createAngularStaticHashes": "dist/index.js"
+    "createAngularStaticHashes": "dist/cli.js"
   },
   "scripts": {
     "build": "shx rm -rf ./dist && shx mkdir ./dist && tsc",
