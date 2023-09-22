@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { readFileSync, writeFileSync, statSync } from 'fs';
 import crypto from 'crypto';
 import path from 'path';

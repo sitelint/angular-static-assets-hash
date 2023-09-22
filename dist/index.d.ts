@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 export declare class AngularStaticAssetsHash {
     private ANGULAR_JSON;
     private angularJSONstr;
