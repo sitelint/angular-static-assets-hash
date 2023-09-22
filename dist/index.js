@@ -2,7 +2,7 @@
 import { readFileSync, writeFileSync, statSync } from 'fs';
 import crypto from 'crypto';
 import path from 'path';
-const glob = require('glob-all');
+import glob from 'glob-all';
 export class AngularStaticAssetsHash {
     ANGULAR_JSON;
     angularJSONstr;
