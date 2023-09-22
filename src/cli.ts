@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { AngularStaticAssetsHash } from './index';
+import { AngularStaticAssetsHash } from './index.js';
 
 const angularStaticAssetsHash = new AngularStaticAssetsHash();
 

@@ -13,8 +13,8 @@
       "ESNext"
     ],
     "mapRoot": "./dist",
-    "module": "ESNext",
-    "moduleResolution": "node",
+    "module": "Node16",
+    "moduleResolution": "Node16",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "./dist",
