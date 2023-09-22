@@ -1,5 +1,7 @@
 # Angular and create a list of static assets with their hashes
 
+Cache busting static files (images, pdfs, pngs, etc.) in the assets folder for the Angular application.
+
 The package looks for static assets, creates a list of them with their hashes, and saves it as a JSON file. This is useful when you want to change the same static asset without changing the name and ensure that the browser will always fetch the latest version.
 
 Note that the hash is created the same way as for Subresource Integrity (SRI).
