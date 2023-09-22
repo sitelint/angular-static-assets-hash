@@ -12,6 +12,15 @@ Note that the hash is created the same way as for Subresource Integrity (SRI).
 npm install @sitelintcode/angular-static-assets-hash --save--dev
 ```
 
+### CLI
+
+You can use directly in `package.json` `script` or through `npx createAngularStaticHashes` [params].
+
+#### Parameters
+
+- `--staticAssetsPath=[path to static assets]`. Default: `[angular root folder]/assets/images`
+- `--globPattern=[glob pattern]`. Default: `/**/*`
+
 ### Import
 
 ```JavaScript
@@ -42,7 +51,7 @@ Once the list of static assets is created, we need to have a way to use it with 
 1. Notice the `staticAssetsList` private property. It points to the location of `assets.json` file is created.
 2. The default path for static assets is `[angular root path]/assets/images`.
 
-### TypeScript
+### TypeScript Pipe for Angular
 
 ```TypeScript
 import { Pipe, PipeTransform } from '@angular/core';
@@ -125,7 +134,7 @@ The hash is quite useful when we want to manage e.g. one file with all `<svg>` i
 </svg>
 ```
 
-## Example usage
+## Workable example
 
 You can see the implementation by looking at the source code of the [app based on Angular](https://platform.sitelint.com/).
 
