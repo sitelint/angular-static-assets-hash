@@ -130,7 +130,7 @@ Later in the code the pipe can be used in the following way.
 <img attr.src="{{ 'assets/images/example.png' | fileHash }}" alt="">
 ```
 
-The hash is quite useful when we want to manage e.g. one file with all `<svg>` icons. While you could change you single file with all svg icons all the time then your code remains the same.
+The hash is quite useful when we want to manage, e.g., one file with all `<svg>` icons. While you could change your single file with all svg icons all the time, your code remains the same.
 
 ### SVG sprite example
 
