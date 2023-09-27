@@ -2,7 +2,7 @@
   "name": "@sitelintcode/angular-static-assets-hash",
   "description": "Create a list of static assets and a hash for each file.",
   "author": "Cezary Tomczyk <cezary.tomczyk@gmail.com> (https://www.sitelint.com/)",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "license": "MOZILLA PUBLIC LICENSE, VERSION 2.0",
   "node": ">=16",
   "type": "module",
