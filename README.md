@@ -143,6 +143,7 @@ The hash is quite useful when we want to manage, e.g., one file with all `<svg>`
 ## Workable example
 
 You can see the implementation by looking at the source code of the [app based on Angular](https://platform.sitelint.com/).
+The app refers to [SiteLint Audit Platform](https://www.sitelint.com/platform/).
 
 ## Contributing
 
