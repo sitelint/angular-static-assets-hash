@@ -1,6 +1,6 @@
-import { readFileSync, writeFileSync, statSync } from 'fs';
-import crypto from 'crypto';
-import path from 'path';
+import { readFileSync, writeFileSync, statSync } from 'node:fs';
+import crypto from 'node:crypto';
+import path from 'node:path';
 import glob from 'glob-all';
 
 export class AngularStaticAssetsHash {
@@ -21,7 +21,9 @@ export class AngularStaticAssetsHash {
     for (const k in obj) {
       if (typeof obj[k] === 'string' && k === key) {
         return obj[k];
-      } else if (typeof obj[k] === 'object' && obj[k] !== null) {
+      }
+
+      if (typeof obj[k] === 'object' && obj[k] !== null) {
         return this.geObjectKey(obj[k], key);
       }
     }
@@ -38,7 +40,7 @@ export class AngularStaticAssetsHash {
       return param.includes('--staticAssetsPath');
     });
 
-    let angularAssets: string = `${angularSourceRoot}/assets/images`;
+    let angularAssets = `${angularSourceRoot}/assets/images`;
 
     if (typeof staticAssetsPath === 'string') {
       angularAssets = staticAssetsPath.split('=')[1];
@@ -48,7 +50,7 @@ export class AngularStaticAssetsHash {
       return param.includes('--globPattern');
     });
 
-    let globPattern: string = '/**/*';
+    let globPattern = '/**/*';
 
     if (typeof customGlobPattern === 'string') {
       globPattern = customGlobPattern.split('=')[1];

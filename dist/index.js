@@ -1,6 +1,6 @@
-import { readFileSync, writeFileSync, statSync } from 'fs';
-import crypto from 'crypto';
-import path from 'path';
+import { readFileSync, writeFileSync, statSync } from 'node:fs';
+import crypto from 'node:crypto';
+import path from 'node:path';
 import glob from 'glob-all';
 export class AngularStaticAssetsHash {
     ANGULAR_JSON;
@@ -19,7 +19,7 @@ export class AngularStaticAssetsHash {
             if (typeof obj[k] === 'string' && k === key) {
                 return obj[k];
             }
-            else if (typeof obj[k] === 'object' && obj[k] !== null) {
+            if (typeof obj[k] === 'object' && obj[k] !== null) {
                 return this.geObjectKey(obj[k], key);
             }
         }
