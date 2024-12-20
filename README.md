@@ -107,7 +107,7 @@ export class FileHashPipe implements PipeTransform {
   private getHashForStaticAsset(assetPath: string): string {
     const path: string = assetPath.split('#')[0];
 
-    if (typeof ResourceUtility.staticAssets[path] === 'string') {
+    if (typeof this.staticAssets[path] === 'string') {
       return this.addParamsToUrl(assetPath, `c=${this.staticAssets[path]}`);
     }
 

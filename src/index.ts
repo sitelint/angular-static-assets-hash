@@ -46,7 +46,7 @@ export class AngularStaticAssetsHash {
       angularAssets = staticAssetsPath.split('=')[1];
     }
 
-    const customGlobPattern = args.find((param: string): boolean => {
+    const customGlobPattern: string | undefined = args.find((param: string): boolean => {
       return param.includes('--globPattern');
     });
 
