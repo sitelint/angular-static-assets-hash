@@ -1,7 +1,11 @@
-import crypto from 'node:crypto';
-import { promises as fsPromises } from 'node:fs';
-import path from 'node:path';
-export class AngularStaticAssetsHash {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AngularStaticAssetsHash = void 0;
+const tslib_1 = require("tslib");
+const node_crypto_1 = tslib_1.__importDefault(require("node:crypto"));
+const node_fs_1 = require("node:fs");
+const node_path_1 = tslib_1.__importDefault(require("node:path"));
+class AngularStaticAssetsHash {
     angularJSON;
     geObjectKey(obj, key) {
         if (obj && typeof obj === 'object') {
@@ -29,7 +33,7 @@ export class AngularStaticAssetsHash {
     }
     async createHashes() {
         if (typeof this.angularJSON === 'undefined') {
-            const angularJSONstr = await fsPromises.readFile('angular.json', {
+            const angularJSONstr = await node_fs_1.promises.readFile('angular.json', {
                 encoding: 'utf-8'
             });
             this.angularJSON = JSON.parse(angularJSONstr);
@@ -45,7 +49,7 @@ export class AngularStaticAssetsHash {
         const customGlobPatternArg = args.find((param) => {
             return param.includes('--globPattern');
         });
-        let angularAssets = path.join(angularSourceRoot, 'assets/images');
+        let angularAssets = node_path_1.default.join(angularSourceRoot, 'assets/images');
         if (staticAssetsPathArg) {
             angularAssets = staticAssetsPathArg.split('=')[1];
         }
@@ -53,23 +57,24 @@ export class AngularStaticAssetsHash {
         if (typeof customGlobPatternArg === 'string') {
             globPattern = customGlobPatternArg.split('=')[1];
         }
-        const searchPattern = path.join(angularAssets, globPattern);
+        const searchPattern = node_path_1.default.join(angularAssets, globPattern);
         const assetsHashes = {};
-        for await (const filePath of fsPromises.glob(searchPattern)) {
-            const fileStat = await fsPromises.stat(filePath);
+        for await (const filePath of node_fs_1.promises.glob(searchPattern)) {
+            const fileStat = await node_fs_1.promises.stat(filePath);
             if (fileStat.isDirectory()) {
                 continue;
             }
-            const content = await fsPromises.readFile(filePath, {
+            const content = await node_fs_1.promises.readFile(filePath, {
                 encoding: 'utf-8'
             });
-            const hash = crypto.createHash('sha256').update(content, 'utf-8');
+            const hash = node_crypto_1.default.createHash('sha256').update(content, 'utf-8');
             const sha = hash.digest('base64url');
             const relativePath = filePath.replace(`${angularSourceRoot}/`, '');
             assetsHashes[relativePath] = sha;
         }
-        const staticAssetsFilePath = path.join(angularSourceRoot, 'assets.json');
-        await fsPromises.writeFile(staticAssetsFilePath, JSON.stringify(assetsHashes, null, 2));
+        const staticAssetsFilePath = node_path_1.default.join(angularSourceRoot, 'assets.json');
+        await node_fs_1.promises.writeFile(staticAssetsFilePath, JSON.stringify(assetsHashes, null, 2));
     }
 }
-//# sourceMappingURL=../src/dist/index.js.map
+exports.AngularStaticAssetsHash = AngularStaticAssetsHash;
+//# sourceMappingURL=../../src/dist/cjs/index.js.map

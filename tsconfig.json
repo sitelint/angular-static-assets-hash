@@ -3,8 +3,8 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
     "declaration": true,
-    "declarationDir": "dist/",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
@@ -13,11 +13,12 @@
       "ESNext"
     ],
     "mapRoot": "./dist",
-    "module": "Node16",
-    "moduleResolution": "Node16",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "./dist",
+    "rootDir": "./src",
     "preserveConstEnums": true,
     "removeComments": true,
     "resolveJsonModule": true,
@@ -37,6 +38,7 @@
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "src/**/*.test.ts"
   ]
 }

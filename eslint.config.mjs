@@ -1,5 +1,6 @@
 import _import from "eslint-plugin-import";
 import markdown from "eslint-plugin-markdown";
+import pluginSecurity from "eslint-plugin-security";
 import typescriptEslint from "@typescript-eslint/eslint-plugin";
 import { fixupPluginRules } from "@eslint/compat";
 import globals from "globals";
@@ -7,11 +8,12 @@ import tsParser from "@typescript-eslint/parser";
 
 export default [
   {
-    plugins: {
-      import: fixupPluginRules(_import),
-      markdown,
-      "@typescript-eslint": typescriptEslint,
-    },
+      plugins: {
+        import: fixupPluginRules(_import),
+        markdown,
+        "@typescript-eslint": typescriptEslint,
+        security: pluginSecurity,
+      },
 
     linterOptions: {
       reportUnusedDisableDirectives: true,
@@ -376,7 +378,6 @@ export default [
       "wrap-regex": "error",
       yoda: ["error", "never"],
       "@typescript-eslint/explicit-member-accessibility": "off",
-      "@typescript-eslint/member-delimiter-style": "error",
       "@typescript-eslint/consistent-type-assertions": "error",
       "@typescript-eslint/no-array-constructor": "error",
       "@typescript-eslint/no-namespace": "error",
@@ -384,8 +385,6 @@ export default [
       "@typescript-eslint/no-unused-vars": "off",
       "@typescript-eslint/no-use-before-define": "error",
       "@typescript-eslint/prefer-namespace-keyword": "error",
-      "@typescript-eslint/type-annotation-spacing": "error",
-
       "@typescript-eslint/naming-convention": [
         "error",
         {

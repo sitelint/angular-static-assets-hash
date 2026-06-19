@@ -1,5 +1,10 @@
 # Angular and create a list of static assets with their hashes
 
+> [!NOTE]
+> As of v0.0.29, the package switched from synchronous to asynchronous methods.
+> `createHashes()` is now `async` and must be `await`ed. See the [Import](#import)
+> section for the updated usage.
+
 Cache busting static files (images, pdfs, pngs, etc.) for the Angular application.
 
 When building, Angular will add a hash to JavaScript, CSS, and assets referenced in your CSS files. However, what about images and other assets you have in your assets folder that you reference in templates?
@@ -30,12 +35,18 @@ You can use directly in `package.json` `script` or through `npx createAngularSta
 ### Import
 
 ```JavaScript
-import { createHashes } from '@sitelintcode/angular-static-assets-hash';
+import { AngularStaticAssetsHash } from '@sitelintcode/angular-static-assets-hash';
 
 const angularStaticAssetsHash = new AngularStaticAssetsHash();
 
-angularStaticAssetsHash.createHashes();
+try {
+  await angularStaticAssetsHash.createHashes();
+} catch {
+  // handle error
+}
 ```
+
+The package ships both ESM and CJS builds.
 
 ## Example output
 
