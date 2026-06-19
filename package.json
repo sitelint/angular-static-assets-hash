@@ -17,7 +17,7 @@
     }
   },
   "bin": {
-    "createAngularStaticHashes": "./dist/cli.js"
+    "createAngularStaticHashes": "dist/cli.js"
   },
   "scripts": {
     "build": "shx rm -rf ./dist && shx mkdir -p ./dist/cjs && echo '{\"type\":\"commonjs\"}' > ./dist/cjs/package.json && tsc && tsc -p tsconfig.cjs.json",
@@ -35,9 +35,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:sitelint/angular-static-assets-hash.git"
+    "url": "git+ssh://git@github.com/sitelint/angular-static-assets-hash.git"
   },
   "private": false,
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
   "devDependencies": {
     "@eslint/compat": "2.1.0",
     "@types/node": "26.0.0",
