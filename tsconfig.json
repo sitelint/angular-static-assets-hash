@@ -2,8 +2,6 @@
   "compileOnSave": false,
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
-    "ignoreDeprecations": "6.0",
     "declaration": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -13,8 +11,8 @@
       "ESNext"
     ],
     "mapRoot": "./dist",
-    "module": "NodeNext",
-    "moduleResolution": "nodenext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "./dist",

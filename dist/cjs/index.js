@@ -8,24 +8,25 @@ const node_path_1 = tslib_1.__importDefault(require("node:path"));
 class AngularStaticAssetsHash {
     angularJSON;
     geObjectKey(obj, key) {
-        if (obj && typeof obj === 'object') {
-            if (Object.hasOwn(obj, key)) {
-                const directValue = obj[key];
-                return typeof directValue === 'string' ? directValue : null;
+        if (!obj || typeof obj !== 'object') {
+            return null;
+        }
+        if (Object.hasOwn(obj, key)) {
+            const directValue = obj[key];
+            return typeof directValue === 'string' ? directValue : null;
+        }
+        for (const k in obj) {
+            if (Object.hasOwn(obj, k) === false) {
+                continue;
             }
-            for (const k in obj) {
-                if (Object.hasOwn(obj, k) === false) {
-                    continue;
-                }
-                const value = obj[k];
-                if (k === key && typeof value === 'string') {
-                    return value;
-                }
-                if (value && typeof value === 'object') {
-                    const result = this.geObjectKey(value, key);
-                    if (result !== null) {
-                        return result;
-                    }
+            const value = obj[k];
+            if (k === key && typeof value === 'string') {
+                return value;
+            }
+            if (value && typeof value === 'object') {
+                const result = this.geObjectKey(value, key);
+                if (result !== null) {
+                    return result;
                 }
             }
         }
@@ -33,9 +34,17 @@ class AngularStaticAssetsHash {
     }
     async createHashes() {
         if (typeof this.angularJSON === 'undefined') {
-            const angularJSONstr = await node_fs_1.promises.readFile('angular.json', {
-                encoding: 'utf-8'
-            });
+            let angularJSONstr;
+            try {
+                angularJSONstr = await node_fs_1.promises.readFile('angular.json', {
+                    encoding: 'utf-8'
+                });
+            }
+            catch (error) {
+                throw new Error('[AngularStaticAssetsHash.createHashes] Failed to read angular.json', {
+                    cause: error
+                });
+            }
             this.angularJSON = JSON.parse(angularJSONstr);
         }
         const angularSourceRoot = this.geObjectKey(this.angularJSON, 'sourceRoot');
@@ -59,21 +68,52 @@ class AngularStaticAssetsHash {
         }
         const searchPattern = node_path_1.default.join(angularAssets, globPattern);
         const assetsHashes = {};
-        for await (const filePath of node_fs_1.promises.glob(searchPattern)) {
-            const fileStat = await node_fs_1.promises.stat(filePath);
-            if (fileStat.isDirectory()) {
-                continue;
+        try {
+            for await (const filePath of node_fs_1.promises.glob(searchPattern)) {
+                let fileStat;
+                try {
+                    fileStat = await node_fs_1.promises.stat(filePath);
+                }
+                catch (error) {
+                    throw new Error(`[AngularStaticAssetsHash.createHashes] Failed to stat asset: ${filePath}`, {
+                        cause: error
+                    });
+                }
+                const isDirectory = fileStat.isDirectory();
+                if (isDirectory) {
+                    continue;
+                }
+                let content;
+                try {
+                    content = await node_fs_1.promises.readFile(filePath, {
+                        encoding: 'utf-8'
+                    });
+                }
+                catch (error) {
+                    throw new Error(`[AngularStaticAssetsHash.createHashes] Failed to read asset: ${filePath}`, {
+                        cause: error
+                    });
+                }
+                const hash = node_crypto_1.default.createHash('sha256').update(content, 'utf-8');
+                const sha = hash.digest('base64url');
+                const relativePath = filePath.replace(`${angularSourceRoot}/`, '');
+                assetsHashes[relativePath] = sha;
             }
-            const content = await node_fs_1.promises.readFile(filePath, {
-                encoding: 'utf-8'
+        }
+        catch (error) {
+            throw new Error('[AngularStaticAssetsHash.createHashes] Failed to create asset hashes', {
+                cause: error
             });
-            const hash = node_crypto_1.default.createHash('sha256').update(content, 'utf-8');
-            const sha = hash.digest('base64url');
-            const relativePath = filePath.replace(`${angularSourceRoot}/`, '');
-            assetsHashes[relativePath] = sha;
         }
         const staticAssetsFilePath = node_path_1.default.join(angularSourceRoot, 'assets.json');
-        await node_fs_1.promises.writeFile(staticAssetsFilePath, JSON.stringify(assetsHashes, null, 2));
+        try {
+            await node_fs_1.promises.writeFile(staticAssetsFilePath, JSON.stringify(assetsHashes, null, 2));
+        }
+        catch (error) {
+            throw new Error(`[AngularStaticAssetsHash.createHashes] Failed to write asset hashes: ${staticAssetsFilePath}`, {
+                cause: error
+            });
+        }
     }
 }
 exports.AngularStaticAssetsHash = AngularStaticAssetsHash;
